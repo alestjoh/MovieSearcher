@@ -3,12 +3,14 @@ package com.example.moviesearcher.view;
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
 import com.example.moviesearcher.R;
+import com.example.moviesearcher.model.MovieApiData;
 import com.example.moviesearcher.viewModel.MainViewModel;
 
 import butterknife.BindView;
@@ -30,10 +32,10 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
 
         ButterKnife.bind(this);
 
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        viewModel.getMovieData().observe(this, data -> {
-            //TODO: update recyclerView with new data
-        });
+        viewModel.getMovieData().observe(this, this::onDataListChanged);
         viewModel.retrieveData();
 
         search.addTextChangedListener(this);
@@ -48,5 +50,11 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
     @Override
     public void afterTextChanged(Editable s) {
         //TODO: update recyclerView with new filter through viewModel
+    }
+
+    private void onDataListChanged(MovieApiData movieApiData) {
+        if (movieApiData != null && movieApiData.data != null) {
+            recyclerView.setAdapter(new MovieRecyclerAdapter(movieApiData.data));
+        }
     }
 }

@@ -47,12 +47,12 @@ public class MovieRecyclerAdapter extends
         return data.size();
     }
 
-    public class MovieViewHolder extends RecyclerView.ViewHolder {
+    class MovieViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView title, genre, year;
-        public ImageView poster;
+        TextView title, genre, year;
+        ImageView poster;
 
-        public MovieViewHolder(@NonNull View itemView) {
+        MovieViewHolder(@NonNull View itemView) {
             super(itemView);
 
             title = itemView.findViewById(R.id.tv_title_item);
