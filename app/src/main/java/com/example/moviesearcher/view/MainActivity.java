@@ -15,11 +15,16 @@ import com.example.moviesearcher.viewModel.MainViewModel;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity implements TextWatcher {
 
     String searchString = null;
 
+    @BindView(R.id.et_search_main)
     public EditText search;
+    @BindView(R.id.recycler_view_main)
     public RecyclerView recyclerView;
 
     private MainViewModel viewModel;
@@ -29,8 +34,7 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        search = findViewById(R.id.et_search_main);
-        recyclerView = findViewById(R.id.recycler_view_main);
+        ButterKnife.bind(this);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);

@@ -43,4 +43,7 @@ dependencies {
     implementation "androidx.room:room-runtime:2.0.0"
     annotationProcessor "androidx.room:room-compiler:2.0.0"
     androidTestImplementation "androidx.room:room-testing:2.0.0"
+
+    implementation 'com.jakewharton:butterknife:8.0.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.0.0'
 }
