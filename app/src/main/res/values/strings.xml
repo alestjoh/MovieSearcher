@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MovieSearcher</string>
+    <string name="search_by_title_or_genre">Search by title or genre</string>
+</resources>
