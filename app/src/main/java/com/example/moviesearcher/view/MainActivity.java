@@ -13,10 +13,14 @@ import com.example.moviesearcher.R;
 import com.example.moviesearcher.model.MovieApiData;
 import com.example.moviesearcher.viewModel.MainViewModel;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements TextWatcher {
+
+    String searchString = null;
 
     @BindView(R.id.et_search_main)
     public EditText search;
@@ -49,12 +53,27 @@ public class MainActivity extends AppCompatActivity implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable s) {
-        //TODO: update recyclerView with new filter through viewModel
+        searchString = s.toString();
+        viewModel.retrieveData();
     }
 
     private void onDataListChanged(MovieApiData movieApiData) {
         if (movieApiData != null && movieApiData.data != null) {
-            recyclerView.setAdapter(new MovieRecyclerAdapter(movieApiData.data));
+            List<MovieApiData.MovieData> data = movieApiData.data;
+
+            filterBySearchString(data);
+
+            recyclerView.setAdapter(new MovieRecyclerAdapter(data));
+        }
+    }
+
+    private void filterBySearchString(List<MovieApiData.MovieData> data) {
+        if (searchString != null && searchString.length() > 0) {
+            for (int i = data.size() - 1; i >= 0; i--) {
+                if (!data.get(i).containsString(searchString)) {
+                    data.remove(i);
+                }
+            }
         }
     }
 }
