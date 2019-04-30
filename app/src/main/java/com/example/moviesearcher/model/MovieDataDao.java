@@ -1,5 +1,6 @@
 package com.example.moviesearcher.model;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -13,7 +14,7 @@ public interface MovieDataDao {
     void insert(MovieApiData.MovieData movie);
 
     @Query("SELECT * from movie_table")
-    List<MovieApiData.MovieData> getAllMovies();
+    LiveData<List<MovieApiData.MovieData>> getAllMovies();
 
     @Query("DELETE FROM movie_table")
     void deleteAll();
